@@ -6,6 +6,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import marked from 'marked';
+import pako from 'pako';
 import { editorMkd } from '../../actions/index';
 
 import './style.less';
@@ -69,7 +70,8 @@ class Editor extends React.Component {
     handleSaveClick() {
         let index = this.props.data.index;
         let { title, value } = this.state;
-
+        value = pako.gzip(value, {to: 'string'});
+        
         this.props.changeMkd(index, title, value);
     }
 

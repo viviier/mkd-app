@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import pako from 'pako';
 import './style.less';
 
 // component
@@ -45,6 +46,8 @@ class Home extends React.Component {
     handleItemClick(index) {
         // 获取index，title，value
         let {title, value} = this.state.list[index];
+        value = value && pako.ungzip(value, {to: 'string'});
+        
         this.props.toEditor(index, title, value);
     }
 
